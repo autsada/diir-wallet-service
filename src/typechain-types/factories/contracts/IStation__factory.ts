@@ -10,6 +10,25 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "uint256",
+        name: "qty",
+        type: "uint256",
+      },
+    ],
+    name: "calculateTips",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "address",
         name: "to",
         type: "address",
@@ -17,11 +36,6 @@ const _abi = [
       {
         internalType: "string",
         name: "name",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "uri",
         type: "string",
       },
     ],
@@ -37,16 +51,15 @@ const _abi = [
         name: "name",
         type: "string",
       },
-    ],
-    name: "stationOwner",
-    outputs: [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        internalType: "uint256",
+        name: "qty",
+        type: "uint256",
       },
     ],
-    stateMutability: "view",
+    name: "tip",
+    outputs: [],
+    stateMutability: "payable",
     type: "function",
   },
   {
@@ -66,6 +79,19 @@ const _abi = [
       },
     ],
     stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "to",
+        type: "address",
+      },
+    ],
+    name: "withdraw",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
 ] as const;

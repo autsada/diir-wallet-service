@@ -48,9 +48,5 @@ export type { IERC165Upgradeable } from "./@openzeppelin/contracts-upgradeable/u
 export { IERC165Upgradeable__factory } from "./factories/@openzeppelin/contracts-upgradeable/utils/introspection/IERC165Upgradeable__factory";
 export type { IStation } from "./contracts/IStation";
 export { IStation__factory } from "./factories/contracts/IStation__factory";
-export type { ITip } from "./contracts/ITip";
-export { ITip__factory } from "./factories/contracts/ITip__factory";
 export type { DiiRStation } from "./contracts/StationContract.sol/DiiRStation";
 export { DiiRStation__factory } from "./factories/contracts/StationContract.sol/DiiRStation__factory";
-export type { DiiRTip } from "./contracts/TipContract.sol/DiiRTip";
-export { DiiRTip__factory } from "./factories/contracts/TipContract.sol/DiiRTip__factory";

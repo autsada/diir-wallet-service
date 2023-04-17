@@ -2,6 +2,4 @@
 /* tslint:disable */
 /* eslint-disable */
 export * as stationContractSol from "./StationContract.sol";
-export * as tipContractSol from "./TipContract.sol";
 export { IStation__factory } from "./IStation__factory";
-export { ITip__factory } from "./ITip__factory";

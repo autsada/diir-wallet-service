@@ -4,10 +4,15 @@
 
 import express from "express"
 
-import { createWallet, getWalletBalance } from "../controllers/wallet"
+import {
+  createWallet,
+  getWalletAddress,
+  getWalletBalance,
+} from "../controllers/wallet"
 import { auth } from "../middlewares/auth"
 
 export const walletRouter = express.Router()
 
 walletRouter.get("/balance/:address", getWalletBalance)
+walletRouter.get("/address", auth, getWalletAddress)
 walletRouter.post("/create", auth, createWallet)

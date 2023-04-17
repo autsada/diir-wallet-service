@@ -4,9 +4,11 @@
 
 import express from "express"
 
-import { checkAuth } from "../controllers/auth"
+import { checkAuth, createUser, getProvider } from "../controllers/auth"
 import { auth } from "../middlewares/auth"
 
 export const authRouter = express.Router()
 
 authRouter.get("/verify", auth, checkAuth)
+authRouter.get("/provider", auth, getProvider)
+authRouter.post("/user/create", createUser)

@@ -15,3 +15,7 @@ export function decryptString(text: string) {
 
   return bytes.toString(CryptoJs.enc.Utf8)
 }
+
+export function throwError(code: number, message: string) {
+  throw { status: code, message }
+}

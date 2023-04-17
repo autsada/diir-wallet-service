@@ -93,17 +93,9 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.IStation__factory>;
     getContractFactory(
-      name: "ITip",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.ITip__factory>;
-    getContractFactory(
       name: "DiiRStation",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.DiiRStation__factory>;
-    getContractFactory(
-      name: "DiiRTip",
-      signerOrOptions?: ethers.Signer | FactoryOptions
-    ): Promise<Contracts.DiiRTip__factory>;
 
     getContractAt(
       name: "AggregatorV3Interface",
@@ -206,20 +198,10 @@ declare module "hardhat/types/runtime" {
       signer?: ethers.Signer
     ): Promise<Contracts.IStation>;
     getContractAt(
-      name: "ITip",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.ITip>;
-    getContractAt(
       name: "DiiRStation",
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.DiiRStation>;
-    getContractAt(
-      name: "DiiRTip",
-      address: string,
-      signer?: ethers.Signer
-    ): Promise<Contracts.DiiRTip>;
 
     // default types
     getContractFactory(

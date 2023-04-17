@@ -25,17 +25,16 @@ export type MintStationInput = {
   data: {
     to: string
     name: string
-    uri: string
   }
 }
 
 /**
  * Input data required to send tips to a station owner.
  * @param key {string} - wallet's key
- * @param data.to {string} - a station owner address
+ * @param data.to {string} - a station name to send the tips to
  * @param data.qty {number} - a quantity of the tips
  */
-export type MintTipInput = {
+export type SendTipsInput = {
   key: string
   data: {
     to: string

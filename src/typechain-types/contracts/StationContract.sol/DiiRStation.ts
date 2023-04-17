@@ -35,29 +35,32 @@ export interface DiiRStationInterface extends utils.Interface {
     "UPGRADER_ROLE()": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
+    "calculateTips(uint256)": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
     "getRoleAdmin(bytes32)": FunctionFragment;
     "grantRole(bytes32,address)": FunctionFragment;
     "hasRole(bytes32,address)": FunctionFragment;
-    "initialize()": FunctionFragment;
+    "initialize(address)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
-    "mint(address,string,string)": FunctionFragment;
+    "mint(address,string)": FunctionFragment;
     "name()": FunctionFragment;
     "ownerOf(uint256)": FunctionFragment;
     "proxiableUUID()": FunctionFragment;
+    "rate()": FunctionFragment;
     "renounceRole(bytes32,address)": FunctionFragment;
     "revokeRole(bytes32,address)": FunctionFragment;
     "safeTransferFrom(address,address,uint256)": FunctionFragment;
     "safeTransferFrom(address,address,uint256,bytes)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
-    "stationOwner(string)": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
     "symbol()": FunctionFragment;
+    "tip(string,uint256)": FunctionFragment;
     "tokenURI(uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
     "upgradeTo(address)": FunctionFragment;
     "upgradeToAndCall(address,bytes)": FunctionFragment;
     "validateName(string)": FunctionFragment;
+    "withdraw(address)": FunctionFragment;
   };
 
   getFunction(
@@ -67,6 +70,7 @@ export interface DiiRStationInterface extends utils.Interface {
       | "UPGRADER_ROLE"
       | "approve"
       | "balanceOf"
+      | "calculateTips"
       | "getApproved"
       | "getRoleAdmin"
       | "grantRole"
@@ -77,19 +81,21 @@ export interface DiiRStationInterface extends utils.Interface {
       | "name"
       | "ownerOf"
       | "proxiableUUID"
+      | "rate"
       | "renounceRole"
       | "revokeRole"
       | "safeTransferFrom(address,address,uint256)"
       | "safeTransferFrom(address,address,uint256,bytes)"
       | "setApprovalForAll"
-      | "stationOwner"
       | "supportsInterface"
       | "symbol"
+      | "tip"
       | "tokenURI"
       | "transferFrom"
       | "upgradeTo"
       | "upgradeToAndCall"
       | "validateName"
+      | "withdraw"
   ): FunctionFragment;
 
   encodeFunctionData(
@@ -113,6 +119,10 @@ export interface DiiRStationInterface extends utils.Interface {
     values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
+    functionFragment: "calculateTips",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
     functionFragment: "getApproved",
     values: [PromiseOrValue<BigNumberish>]
   ): string;
@@ -130,7 +140,7 @@ export interface DiiRStationInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "initialize",
-    values?: undefined
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "isApprovedForAll",
@@ -138,11 +148,7 @@ export interface DiiRStationInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "mint",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>
-    ]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(
@@ -153,6 +159,7 @@ export interface DiiRStationInterface extends utils.Interface {
     functionFragment: "proxiableUUID",
     values?: undefined
   ): string;
+  encodeFunctionData(functionFragment: "rate", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "renounceRole",
     values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]
@@ -183,14 +190,14 @@ export interface DiiRStationInterface extends utils.Interface {
     values: [PromiseOrValue<string>, PromiseOrValue<boolean>]
   ): string;
   encodeFunctionData(
-    functionFragment: "stationOwner",
-    values: [PromiseOrValue<string>]
-  ): string;
-  encodeFunctionData(
     functionFragment: "supportsInterface",
     values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "tip",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
+  ): string;
   encodeFunctionData(
     functionFragment: "tokenURI",
     values: [PromiseOrValue<BigNumberish>]
@@ -215,6 +222,10 @@ export interface DiiRStationInterface extends utils.Interface {
     functionFragment: "validateName",
     values: [PromiseOrValue<string>]
   ): string;
+  encodeFunctionData(
+    functionFragment: "withdraw",
+    values: [PromiseOrValue<string>]
+  ): string;
 
   decodeFunctionResult(functionFragment: "ADMIN_ROLE", data: BytesLike): Result;
   decodeFunctionResult(
@@ -227,6 +238,10 @@ export interface DiiRStationInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "calculateTips",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "getApproved",
     data: BytesLike
@@ -249,6 +264,7 @@ export interface DiiRStationInterface extends utils.Interface {
     functionFragment: "proxiableUUID",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "rate", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "renounceRole",
     data: BytesLike
@@ -267,14 +283,11 @@ export interface DiiRStationInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "stationOwner",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "supportsInterface",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "tip", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "tokenURI", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "transferFrom",
@@ -289,6 +302,7 @@ export interface DiiRStationInterface extends utils.Interface {
     functionFragment: "validateName",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
   events: {
     "AdminChanged(address,address)": EventFragment;
@@ -299,7 +313,8 @@ export interface DiiRStationInterface extends utils.Interface {
     "RoleAdminChanged(bytes32,bytes32,bytes32)": EventFragment;
     "RoleGranted(bytes32,address,address)": EventFragment;
     "RoleRevoked(bytes32,address,address)": EventFragment;
-    "StationMinted(uint256,address,string,uint256)": EventFragment;
+    "StationMinted(uint256,address,uint256)": EventFragment;
+    "TipsTransferred(address,address,uint256,uint256,uint256)": EventFragment;
     "Transfer(address,address,uint256)": EventFragment;
     "Upgraded(address)": EventFragment;
   };
@@ -313,6 +328,7 @@ export interface DiiRStationInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "RoleGranted"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RoleRevoked"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "StationMinted"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "TipsTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Upgraded"): EventFragment;
 }
@@ -409,15 +425,28 @@ export type RoleRevokedEventFilter = TypedEventFilter<RoleRevokedEvent>;
 export interface StationMintedEventObject {
   tokenId: BigNumber;
   owner: string;
-  tokenURI: string;
   timestamp: BigNumber;
 }
 export type StationMintedEvent = TypedEvent<
-  [BigNumber, string, string, BigNumber],
+  [BigNumber, string, BigNumber],
   StationMintedEventObject
 >;
 
 export type StationMintedEventFilter = TypedEventFilter<StationMintedEvent>;
+
+export interface TipsTransferredEventObject {
+  from: string;
+  to: string;
+  amount: BigNumber;
+  fee: BigNumber;
+  timestamp: BigNumber;
+}
+export type TipsTransferredEvent = TypedEvent<
+  [string, string, BigNumber, BigNumber, BigNumber],
+  TipsTransferredEventObject
+>;
+
+export type TipsTransferredEventFilter = TypedEventFilter<TipsTransferredEvent>;
 
 export interface TransferEventObject {
   from: string;
@@ -482,6 +511,11 @@ export interface DiiRStation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    calculateTips(
+      qty: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -505,6 +539,7 @@ export interface DiiRStation extends BaseContract {
     ): Promise<[boolean]>;
 
     initialize(
+      priceFeedAddress: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -517,7 +552,6 @@ export interface DiiRStation extends BaseContract {
     mint(
       to: PromiseOrValue<string>,
       name: PromiseOrValue<string>,
-      uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
@@ -529,6 +563,8 @@ export interface DiiRStation extends BaseContract {
     ): Promise<[string]>;
 
     proxiableUUID(overrides?: CallOverrides): Promise<[string]>;
+
+    rate(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     renounceRole(
       role: PromiseOrValue<BytesLike>,
@@ -563,17 +599,18 @@ export interface DiiRStation extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    stationOwner(
-      name: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
-
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
     symbol(overrides?: CallOverrides): Promise<[string]>;
+
+    tip(
+      name: PromiseOrValue<string>,
+      qty: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
     tokenURI(
       tokenId: PromiseOrValue<BigNumberish>,
@@ -602,6 +639,11 @@ export interface DiiRStation extends BaseContract {
       name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[boolean] & { valid: boolean }>;
+
+    withdraw(
+      to: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
   };
 
   ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
@@ -618,6 +660,11 @@ export interface DiiRStation extends BaseContract {
 
   balanceOf(
     owner: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
+  calculateTips(
+    qty: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -644,6 +691,7 @@ export interface DiiRStation extends BaseContract {
   ): Promise<boolean>;
 
   initialize(
+    priceFeedAddress: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -656,7 +704,6 @@ export interface DiiRStation extends BaseContract {
   mint(
     to: PromiseOrValue<string>,
     name: PromiseOrValue<string>,
-    uri: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
@@ -668,6 +715,8 @@ export interface DiiRStation extends BaseContract {
   ): Promise<string>;
 
   proxiableUUID(overrides?: CallOverrides): Promise<string>;
+
+  rate(overrides?: CallOverrides): Promise<BigNumber>;
 
   renounceRole(
     role: PromiseOrValue<BytesLike>,
@@ -702,17 +751,18 @@ export interface DiiRStation extends BaseContract {
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  stationOwner(
-    name: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<string>;
-
   supportsInterface(
     interfaceId: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
   symbol(overrides?: CallOverrides): Promise<string>;
+
+  tip(
+    name: PromiseOrValue<string>,
+    qty: PromiseOrValue<BigNumberish>,
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   tokenURI(
     tokenId: PromiseOrValue<BigNumberish>,
@@ -742,6 +792,11 @@ export interface DiiRStation extends BaseContract {
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  withdraw(
+    to: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
     ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
 
@@ -757,6 +812,11 @@ export interface DiiRStation extends BaseContract {
 
     balanceOf(
       owner: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    calculateTips(
+      qty: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -782,7 +842,10 @@ export interface DiiRStation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    initialize(overrides?: CallOverrides): Promise<void>;
+    initialize(
+      priceFeedAddress: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     isApprovedForAll(
       owner: PromiseOrValue<string>,
@@ -793,7 +856,6 @@ export interface DiiRStation extends BaseContract {
     mint(
       to: PromiseOrValue<string>,
       name: PromiseOrValue<string>,
-      uri: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -805,6 +867,8 @@ export interface DiiRStation extends BaseContract {
     ): Promise<string>;
 
     proxiableUUID(overrides?: CallOverrides): Promise<string>;
+
+    rate(overrides?: CallOverrides): Promise<BigNumber>;
 
     renounceRole(
       role: PromiseOrValue<BytesLike>,
@@ -839,17 +903,18 @@ export interface DiiRStation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    stationOwner(
-      name: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<string>;
-
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
     symbol(overrides?: CallOverrides): Promise<string>;
+
+    tip(
+      name: PromiseOrValue<string>,
+      qty: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     tokenURI(
       tokenId: PromiseOrValue<BigNumberish>,
@@ -878,6 +943,11 @@ export interface DiiRStation extends BaseContract {
       name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<boolean>;
+
+    withdraw(
+      to: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {
@@ -955,18 +1025,31 @@ export interface DiiRStation extends BaseContract {
       sender?: PromiseOrValue<string> | null
     ): RoleRevokedEventFilter;
 
-    "StationMinted(uint256,address,string,uint256)"(
+    "StationMinted(uint256,address,uint256)"(
       tokenId?: PromiseOrValue<BigNumberish> | null,
       owner?: PromiseOrValue<string> | null,
-      tokenURI?: null,
       timestamp?: null
     ): StationMintedEventFilter;
     StationMinted(
       tokenId?: PromiseOrValue<BigNumberish> | null,
       owner?: PromiseOrValue<string> | null,
-      tokenURI?: null,
       timestamp?: null
     ): StationMintedEventFilter;
+
+    "TipsTransferred(address,address,uint256,uint256,uint256)"(
+      from?: null,
+      to?: null,
+      amount?: null,
+      fee?: null,
+      timestamp?: null
+    ): TipsTransferredEventFilter;
+    TipsTransferred(
+      from?: null,
+      to?: null,
+      amount?: null,
+      fee?: null,
+      timestamp?: null
+    ): TipsTransferredEventFilter;
 
     "Transfer(address,address,uint256)"(
       from?: PromiseOrValue<string> | null,
@@ -1005,6 +1088,11 @@ export interface DiiRStation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    calculateTips(
+      qty: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -1028,6 +1116,7 @@ export interface DiiRStation extends BaseContract {
     ): Promise<BigNumber>;
 
     initialize(
+      priceFeedAddress: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1040,7 +1129,6 @@ export interface DiiRStation extends BaseContract {
     mint(
       to: PromiseOrValue<string>,
       name: PromiseOrValue<string>,
-      uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
@@ -1052,6 +1140,8 @@ export interface DiiRStation extends BaseContract {
     ): Promise<BigNumber>;
 
     proxiableUUID(overrides?: CallOverrides): Promise<BigNumber>;
+
+    rate(overrides?: CallOverrides): Promise<BigNumber>;
 
     renounceRole(
       role: PromiseOrValue<BytesLike>,
@@ -1086,17 +1176,18 @@ export interface DiiRStation extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    stationOwner(
-      name: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     symbol(overrides?: CallOverrides): Promise<BigNumber>;
+
+    tip(
+      name: PromiseOrValue<string>,
+      qty: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
 
     tokenURI(
       tokenId: PromiseOrValue<BigNumberish>,
@@ -1124,6 +1215,11 @@ export interface DiiRStation extends BaseContract {
     validateName(
       name: PromiseOrValue<string>,
       overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    withdraw(
+      to: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
   };
 
@@ -1147,6 +1243,11 @@ export interface DiiRStation extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    calculateTips(
+      qty: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -1170,6 +1271,7 @@ export interface DiiRStation extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     initialize(
+      priceFeedAddress: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1182,7 +1284,6 @@ export interface DiiRStation extends BaseContract {
     mint(
       to: PromiseOrValue<string>,
       name: PromiseOrValue<string>,
-      uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -1194,6 +1295,8 @@ export interface DiiRStation extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     proxiableUUID(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    rate(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     renounceRole(
       role: PromiseOrValue<BytesLike>,
@@ -1228,17 +1331,18 @@ export interface DiiRStation extends BaseContract {
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    stationOwner(
-      name: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     supportsInterface(
       interfaceId: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    tip(
+      name: PromiseOrValue<string>,
+      qty: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
 
     tokenURI(
       tokenId: PromiseOrValue<BigNumberish>,
@@ -1266,6 +1370,11 @@ export interface DiiRStation extends BaseContract {
     validateName(
       name: PromiseOrValue<string>,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    withdraw(
+      to: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

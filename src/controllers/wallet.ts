@@ -10,8 +10,38 @@ const { NODE_ENV } = process.env
 const env = NODE_ENV as Environment
 
 /**
- * @dev The function to generate blockchain wallet.
+ * @dev A function to get user's wallet
+ */
+export async function getWalletAddress(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { uid } = req
+    if (!uid) throw new Error(badRequestErrMessage)
+
+    let walletAddress: string = ""
+
+    const walletDoc = await getDocById<Wallet>({
+      collectionName: walletsCollection,
+      docId: uid,
+    })
+
+    if (walletDoc && walletDoc.address && walletDoc.key) {
+      walletAddress = walletDoc.address
+    }
+
+    res.status(200).json({ address: walletAddress || null })
+  } catch (error) {
+    next(error)
+  }
+}
+
+/**
+ * @dev A function to generate blockchain wallet.
  * @dev Required user's auth uid
+ * @dev Returns the existing wallet or create a new wallet
  */
 export async function createWallet(
   req: Request,
@@ -58,7 +88,7 @@ export async function createWallet(
 }
 
 /**
- * @dev The function to get balance of the wallet
+ * @dev A function to get balance of the wallet
  */
 export async function getWalletBalance(
   req: Request,

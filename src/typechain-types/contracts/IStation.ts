@@ -4,10 +4,12 @@
 import type {
   BaseContract,
   BigNumber,
+  BigNumberish,
   BytesLike,
   CallOverrides,
   ContractTransaction,
   Overrides,
+  PayableOverrides,
   PopulatedTransaction,
   Signer,
   utils,
@@ -24,41 +26,54 @@ import type {
 
 export interface IStationInterface extends utils.Interface {
   functions: {
-    "mint(address,string,string)": FunctionFragment;
-    "stationOwner(string)": FunctionFragment;
+    "calculateTips(uint256)": FunctionFragment;
+    "mint(address,string)": FunctionFragment;
+    "tip(string,uint256)": FunctionFragment;
     "validateName(string)": FunctionFragment;
+    "withdraw(address)": FunctionFragment;
   };
 
   getFunction(
-    nameOrSignatureOrTopic: "mint" | "stationOwner" | "validateName"
+    nameOrSignatureOrTopic:
+      | "calculateTips"
+      | "mint"
+      | "tip"
+      | "validateName"
+      | "withdraw"
   ): FunctionFragment;
 
   encodeFunctionData(
-    functionFragment: "mint",
-    values: [
-      PromiseOrValue<string>,
-      PromiseOrValue<string>,
-      PromiseOrValue<string>
-    ]
+    functionFragment: "calculateTips",
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "stationOwner",
-    values: [PromiseOrValue<string>]
+    functionFragment: "mint",
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "tip",
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "validateName",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "withdraw",
     values: [PromiseOrValue<string>]
   ): string;
 
-  decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "stationOwner",
+    functionFragment: "calculateTips",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "tip", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "validateName",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
   events: {};
 }
@@ -90,97 +105,147 @@ export interface IStation extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    calculateTips(
+      qty: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     mint(
       to: PromiseOrValue<string>,
       name: PromiseOrValue<string>,
-      uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    stationOwner(
+    tip(
       name: PromiseOrValue<string>,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
+      qty: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
 
     validateName(
       name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[boolean] & { valid: boolean }>;
+
+    withdraw(
+      to: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<ContractTransaction>;
   };
+
+  calculateTips(
+    qty: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   mint(
     to: PromiseOrValue<string>,
     name: PromiseOrValue<string>,
-    uri: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  stationOwner(
+  tip(
     name: PromiseOrValue<string>,
-    overrides?: CallOverrides
-  ): Promise<string>;
+    qty: PromiseOrValue<BigNumberish>,
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
 
   validateName(
     name: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
+  withdraw(
+    to: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
+    calculateTips(
+      qty: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     mint(
       to: PromiseOrValue<string>,
       name: PromiseOrValue<string>,
-      uri: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    stationOwner(
+    tip(
       name: PromiseOrValue<string>,
+      qty: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
-    ): Promise<string>;
+    ): Promise<void>;
 
     validateName(
       name: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<boolean>;
+
+    withdraw(
+      to: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {};
 
   estimateGas: {
+    calculateTips(
+      qty: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     mint(
       to: PromiseOrValue<string>,
       name: PromiseOrValue<string>,
-      uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    stationOwner(
+    tip(
       name: PromiseOrValue<string>,
-      overrides?: CallOverrides
+      qty: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     validateName(
       name: PromiseOrValue<string>,
       overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    withdraw(
+      to: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
+    calculateTips(
+      qty: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     mint(
       to: PromiseOrValue<string>,
       name: PromiseOrValue<string>,
-      uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
-    stationOwner(
+    tip(
       name: PromiseOrValue<string>,
-      overrides?: CallOverrides
+      qty: PromiseOrValue<BigNumberish>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     validateName(
       name: PromiseOrValue<string>,
       overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    withdraw(
+      to: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

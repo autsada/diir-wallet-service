@@ -3,7 +3,4 @@
 /* eslint-disable */
 import type * as stationContractSol from "./StationContract.sol";
 export type { stationContractSol };
-import type * as tipContractSol from "./TipContract.sol";
-export type { tipContractSol };
 export type { IStation } from "./IStation";
-export type { ITip } from "./ITip";
