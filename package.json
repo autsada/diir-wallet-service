@@ -1,5 +1,5 @@
 {
-  "name": "wallet-service",
+  "name": "diir-wallet-service",
   "version": "1.0.0",
   "description": "",
   "main": "dist/src/app.js",
