@@ -4,7 +4,7 @@ import axios from "axios"
 import { generateWallet, generateWalletDev, getBalance } from "../lib/wallet"
 import { walletsCollection } from "../firebase/config"
 import { createDocWithId, getDocById } from "../firebase/helpers"
-import { badRequestErrMessage } from "../lib/constants"
+import { authError } from "../lib/constants"
 import type { Wallet, Environment } from "../types"
 
 const { NODE_ENV, ALCHEMY_WEBHOOK_ID, ALCHEMY_WEBHOOK_AUTH_TOKEN } = process.env
@@ -20,7 +20,7 @@ export async function getWalletAddress(
 ) {
   try {
     const { uid } = req
-    if (!uid) throw new Error(badRequestErrMessage)
+    if (!uid) throw new Error(authError)
 
     let walletAddress: string = ""
 
@@ -51,7 +51,7 @@ export async function createWallet(
 ) {
   try {
     const { uid } = req
-    if (!uid) throw new Error(badRequestErrMessage)
+    if (!uid) throw new Error(authError)
 
     let walletAddress: string = ""
 

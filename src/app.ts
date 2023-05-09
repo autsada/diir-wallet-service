@@ -37,6 +37,7 @@ app.get("/id-token", async (req, res, next) => {
 app.use("/auth", router.authRouter)
 app.use("/wallet", router.walletRouter)
 app.use("/station", router.stationRouter)
+app.use("/upload", router.uploadRouter)
 app.use(errorHandler)
 
 // Create the HTTP server
