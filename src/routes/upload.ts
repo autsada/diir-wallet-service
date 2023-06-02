@@ -1,10 +1,5 @@
-/**
- * A route to create wallets for users
- */
-
 import express from "express"
 
-import { auth } from "../middlewares/auth"
 import { onUploadFinished } from "../controllers/upload"
 
 export const uploadRouter = express.Router()
